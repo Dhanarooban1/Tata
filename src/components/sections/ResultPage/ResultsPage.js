@@ -111,34 +111,7 @@ Give condition, medicines (with dosage and type), and advice using the schema.
   }, [query]);
 
   // Fetch nearby doctors
-  useEffect(() => {
-    if (!location) return;
-
-    const fetchNearbyDoctors = () => {
-      const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`;
-      script.async = true;
-      script.onload = () => {
-        const service = new window.google.maps.places.PlacesService(document.createElement("div"));
-
-        const request = {
-          location: new window.google.maps.LatLng(location.lat, location.lng),
-          radius: 5000,
-          type: ["doctor"]
-        };
-
-        service.nearbySearch(request, (results, status) => {
-          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-            setDoctors(results.slice(0, 5)); // Top 5
-          }
-        });
-      };
-      document.body.appendChild(script);
-    };
-
-    fetchNearbyDoctors();
-  }, [location]);
-
+ 
   return (
     <motion.div
       variants={containerVariants}
